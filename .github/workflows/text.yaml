@@ -26,4 +26,4 @@ jobs:
           pip install pytest
 
       - name: Run tests for ${{ matrix.task }}
-        run: pytest -q ${{ matrix.task }}/
+        run: pytest -q -x ${{ matrix.task }}/
