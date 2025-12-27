@@ -23,8 +23,8 @@ def create_and_populate_table(conn: sqlite3.Connection, table_name: str, csv_fil
             random.shuffle(records)
 
             try:
-                sql_create = f"DROP TABLE IF EXISTS {table_name}; CREATE TABLE {table_name} ({", ".join(f"{k} text" for k in keys)});"
-                sql_poplulate = f"INSERT INTO {table_name} ({', '.join(k for k in keys)}) VALUES ({','.join('?' for _ in range(len(keys)))})"
+                sql_create = f'DROP TABLE IF EXISTS {table_name}; CREATE TABLE {table_name} ({", ".join(f"{k} text" for k in keys)});'
+                sql_poplulate = f"INSERT INTO {table_name} ({', '.join(k for k in keys)}) VALUES ({','.join('?' for _ in range(len(keys)))});"
 
                 conn.executescript(sql_create)
                 conn.executemany(sql_poplulate,records)
