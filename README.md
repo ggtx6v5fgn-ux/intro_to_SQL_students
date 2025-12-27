@@ -35,7 +35,7 @@ It stores the query.
 by executing the previous command, you will have a view object named {view_name} which contains the result of running {QUERY}.
 2. Checkout the command `ORDER BY` to sort the records according to ages.
 
-3. You should write your solution inside `task1/solution.sql` file. Do not change other files in the repo.
+You should write your solution inside `task1/solution.sql` file. Do not change other files in the repo.
 
 
 
@@ -51,4 +51,28 @@ Sales_Count — number of sales in that Region
 Total_Revenue — total some of Prices after discount 
 The view must include all Regions present in the table, ordered by total_revenue from largest to lowest.
 
+Write your SQL code inside `task2/solution.sql`
+
 ## Task 3:
+In this task you will use SQL Commands : `HAVING`, `JOIN`.
+Suppose you were asked to provide information about the activity of users during workign hours. You are provided with two databases: users, and server_logs.
+`users` contain simple data about empolyees in the company, such as name, and Id .. 
+`server_logs` contains inforamtion about logins to the server:
+- Log_ID: primary key
+- Session_Start : the exact time a sessions has started.
+- Session_End : the time at which the session was closed.
+- User_ID : the ID of the user who logged in during this session.
+
+You were asked to create the following :
+1. Create a new column in `server_logs` named : `Session_Dur`, which contains the amount  of time (in minutes) the session was open. You can convert the date into days using SQL function `julianday())`.
+2. Create a view named `v_users_activity`, containing the following fields: 
+- `User_ID`
+- `First_Name`
+- `Last_Name`
+- `Num_Sessions`: Total Number of sessions that were opened by the user.
+- `Total_Session_Time` : Total time (in minutes) the user worked on a sesssion.
+and ordered by `Total_Session_Time` descending.
+
+You will need to implement LEFT JOIN between `users` and `server_logs`.
+
+Your solution for the two tasks should be written inside `task3/solution.sql`.
