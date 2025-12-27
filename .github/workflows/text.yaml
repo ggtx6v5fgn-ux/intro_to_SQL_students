@@ -1,29 +1,43 @@
-name: Tasks CI
+name: Autograde
 
 on:
   push:
   pull_request:
 
 jobs:
-  test:
+  grade:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        task: [task1]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout student submission
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      # - name: Checkout private tests
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: BasharBetta7/intro_to_SQL_tasks_private
+      #     token: ${{ secrets.GRADER_TOKEN }}
+      #     path: __tests__
+
+          
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
+          # Student deps (optional)
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # Test deps (recommended source of truth)
+          if [ -f __tests__/requirements.txt ]; then pip install -r __tests__/requirements.txt; fi
           pip install pytest
+          ls __tests__/
 
-      - name: Run tests for ${{ matrix.task }}
-        run: pytest -q -x ${{ matrix.task }}/
+      - name: Run tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          bash run_tests.sh
+
