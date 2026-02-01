@@ -1,6 +1,6 @@
 ALTER TABLE server_logs ADD COLUMN Session_Dur REAL;
 UPDATE server_logs 
-SET Session_Dur = julianday(Session_End) - julianday(Session_Start)) * 24 * 60;
+SET Session_Dur = julianday(Session_End) - julianday(Session_Start) * 24 * 60;
 
 
 CREATE VIEW v_users_activity AS
