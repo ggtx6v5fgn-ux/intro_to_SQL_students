@@ -1,8 +1,14 @@
-ALTER TABLE server_logs ADD COLUMN Session_Dur REAL;
+-- 1. Добавляем колонку
+ALTER TABLE server_logs 
+ADD COLUMN Session_Dur REAL;
+
+-- 2. Вычисляем длительность
 UPDATE server_logs 
-SET Session_Dur = julianday(Session_End) - julianday(Session_Start) * 24 * 60;
+SET Session_Dur = ABS(
+    julianday(Session_End) - julianday(Session_Start)
+) * 1440.0;
 
-
+-- 3. Создаем VIEW
 CREATE VIEW v_users_activity AS
 SELECT 
     u.User_ID,
